@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>MediaLitr.Abstractions</PackageId>
-    <Version>1.0.7</Version>
+    <PackageId>MediaLitr</PackageId>
+    <Version>1.0.0</Version>
     <Authors>juandariogg</Authors>
     <Description>Abstractions for the Liteweight implementation of the mediator pattern.</Description>
     <PackageIcon>favicon.png</PackageIcon>
@@ -17,12 +17,24 @@
     <PackageProjectUrl>https://github.com/juandariogarciagimeno/MediaLitR</PackageProjectUrl>
     <PackageOutputPath>$(SolutionDir)\nupkgs\</PackageOutputPath>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageTags></PackageTags>
+    <PackageTags>mediator;mediatr;CQRS;pipelines</PackageTags>
     <CodeAnalysisRuleSet>..\stylecop.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.5" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="\" Visible="false" />
+    <None Include="..\LICENSE.txt" Pack="true" PackagePath="\" Visible="false" />
+    <None Include="..\favicon.png" Pack="true" PackagePath="\" Visible="false" />
+    <AdditionalFiles Include="..\stylecop.json" Pack="false" Visible="false" />
+    <None Include="..\stylecop.ruleset" Pack="false" Visible="false" />
   </ItemGroup>
 
 </Project>

@@ -31,7 +31,7 @@ namespace MediaLitr.Test
             var provider = services.BuildServiceProvider();
 
             var options = Options.Create(new PipelineConfig());
-            var mediator = new MediaLitr(provider, options);
+            var mediator = new MediaLitR(provider, options);
 
             var result = await mediator.QueryAsync<TestQuery, string>(query);
 
@@ -51,7 +51,7 @@ namespace MediaLitr.Test
             var provider = services.BuildServiceProvider();
 
             var options = Options.Create(new PipelineConfig());
-            var mediator = new MediaLitr(provider, options);
+            var mediator = new MediaLitR(provider, options);
 
             var result = await mediator.SendAsync<TestCommand, string>(command);
 
@@ -71,7 +71,7 @@ namespace MediaLitr.Test
             var provider = services.BuildServiceProvider();
 
             var options = Options.Create(new PipelineConfig());
-            var mediator = new MediaLitr(provider, options);
+            var mediator = new MediaLitR(provider, options);
 
             await mediator.SendAsync(command);
             mockHandler.Verify(h => h.HandleAsync(command, It.IsAny<CancellationToken>()), Times.Once);
@@ -99,7 +99,7 @@ namespace MediaLitr.Test
             var provider = services.BuildServiceProvider();
 
             var options = Options.Create(new PipelineConfig());
-            var mediator = new MediaLitr(provider, options);
+            var mediator = new MediaLitR(provider, options);
 
             var result = await mediator.SendAsync<TestCommand, string>(command);
 
@@ -113,7 +113,7 @@ namespace MediaLitr.Test
             var services = new ServiceCollection();
             var provider = services.BuildServiceProvider();
             var options = Options.Create(new PipelineConfig());
-            var mediator = new MediaLitr(provider, options);
+            var mediator = new MediaLitR(provider, options);
 
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
                 mediator.QueryAsync<TestQuery, string>(new TestQuery("fail")));
@@ -137,7 +137,7 @@ namespace MediaLitr.Test
                 GenericPipelines = [typeof(GenericPipeline<,>)]
             };
             var options = Options.Create(config);
-            var mediator = new MediaLitr(provider, options);
+            var mediator = new MediaLitR(provider, options);
 
             var result = await mediator.SendAsync<TestCommand, string>(command);
 

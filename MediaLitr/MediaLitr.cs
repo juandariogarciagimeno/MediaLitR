@@ -1,22 +1,35 @@
-﻿using MediaLitr.Abstractions;
+﻿// --------------------------------------------------------------------------------------------------
+// <copyright file="MediaLitR.cs" company="juandariogg">
+// Licensed under the MIT license. See LICENSE file in the samples root for full license information.
+// </copyright>
+// --------------------------------------------------------------------------------------------------
+
+using MediaLitr.Abstractions;
 using MediaLitr.Abstractions.CQRS;
 using MediaLitr.Abstractions.Models;
 using MediaLitr.Abstractions.Pipelines;
 using MediaLitr.Config;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("MediaLitr.Test")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("MediaLitr.Test")]
 
 namespace MediaLitr;
 
-internal class MediaLitr(IServiceProvider serviceProvider, IOptions<PipelineConfig> pipelines) : IMediator
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+
+/// <summary>
+/// MediaLitr is a mediator implementation that allows for the execution of commands and queries.
+/// </summary>
+/// <param name="serviceProvider">Service Provider.</param>
+/// <param name="pipelines">Registered Generic Pipelines.</param>
+internal class MediaLitR(IServiceProvider serviceProvider, IOptions<PipelineConfig> pipelines) : IMediator
 {
-    private IServiceProvider serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
+    private readonly IServiceProvider serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
     private readonly PipelineConfig pipelines = pipelines?.Value ?? throw new ArgumentNullException(nameof(pipelines));
 
-    public async Task<TResult> QueryAsync<TQuery, TResult>(TQuery query, CancellationToken cancellationToken = default) where TQuery : IQuery<TResult>
+    /// <inheritdoc/>
+    public async Task<TResult> QueryAsync<TQuery, TResult>(TQuery query, CancellationToken cancellationToken = default)
+        where TQuery : IQuery<TResult>
     {
         var handler = serviceProvider.GetService<IQueryHandler<TQuery, TResult>>();
 
@@ -30,7 +43,9 @@ internal class MediaLitr(IServiceProvider serviceProvider, IOptions<PipelineConf
         return await final.Invoke(query, cancellationToken);
     }
 
-    public async Task<TResult> SendAsync<TCommand, TResult>(TCommand command, CancellationToken cancellationToken = default) where TCommand : ICommand<TResult>
+    /// <inheritdoc/>
+    public async Task<TResult> SendAsync<TCommand, TResult>(TCommand command, CancellationToken cancellationToken = default)
+        where TCommand : ICommand<TResult>
     {
         var handler = serviceProvider.GetService<ICommandHandler<TCommand, TResult>>();
 
@@ -44,7 +59,9 @@ internal class MediaLitr(IServiceProvider serviceProvider, IOptions<PipelineConf
         return await final.Invoke(command, cancellationToken);
     }
 
-    public async Task SendAsync<TCommand>(TCommand command, CancellationToken cancellationToken = default) where TCommand : ICommand<Unit>
+    /// <inheritdoc/>
+    public async Task SendAsync<TCommand>(TCommand command, CancellationToken cancellationToken = default)
+        where TCommand : ICommand<Unit>
     {
         var handler = serviceProvider.GetService<ICommandHandler<TCommand>>();
 
@@ -58,7 +75,8 @@ internal class MediaLitr(IServiceProvider serviceProvider, IOptions<PipelineConf
         await final.Invoke(command, cancellationToken);
     }
 
-    private Func<TRequest, CancellationToken, Task<TResponse>> GetPipeline<TRequest, TResponse>(Func<TRequest, CancellationToken, Task<TResponse>> handler) where TRequest : ICommand<TResponse>
+    private Func<TRequest, CancellationToken, Task<TResponse>> GetPipeline<TRequest, TResponse>(Func<TRequest, CancellationToken, Task<TResponse>> handler)
+        where TRequest : ICommand<TResponse>
     {
         List<IPipelineBehavior<TRequest, TResponse>>? allPipelines = [];
 
@@ -83,7 +101,8 @@ internal class MediaLitr(IServiceProvider serviceProvider, IOptions<PipelineConf
         return final;
     }
 
-    private static Func<TRequest, CancellationToken, Task<TResponse>> BuildPipeline<TRequest, TResponse>(IEnumerable<IPipelineBehavior<TRequest, TResponse>> behaviors, Func<TRequest, CancellationToken, Task<TResponse>> finalHandler) where TRequest : ICommand<TResponse>
+    private static Func<TRequest, CancellationToken, Task<TResponse>> BuildPipeline<TRequest, TResponse>(IEnumerable<IPipelineBehavior<TRequest, TResponse>> behaviors, Func<TRequest, CancellationToken, Task<TResponse>> finalHandler)
+        where TRequest : ICommand<TResponse>
     {
         Func<TRequest, CancellationToken, Task<TResponse>> pipeline = finalHandler;
 
