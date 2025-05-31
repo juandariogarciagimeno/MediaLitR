@@ -1,19 +1,15 @@
-﻿<h1 align="center">
-  <img src="https://img.shields.io/badge/Mediator%20Lite-MediaLitR-blue?style=for-the-badge&logo=dotnet" alt="MediaLitR Logo" width="250"/>
-</h1>
+﻿# MediaLitR
 
-<p align="center">
-  <strong>MediaLitR</strong> is a lightweight, opinionated implementation of the Mediator pattern in .NET, inspired by <a href="https://github.com/jbogard/MediatR">MediatR</a>.<br/>
-  It provides a clean CQRS foundation with pipeline support and minimal setup.
-</p>
+**MediaLitR** is a lightweight, opinionated implementation of the Mediator pattern in .NET, inspired by [MediatR](https://github.com/jbogard/MediatR).  
+It provides a clean CQRS foundation with pipeline support and minimal setup.
 
-<p align="center">
-  <a href="https://www.nuget.org/packages/MediaLitr"><img alt="NuGet" src="https://img.shields.io/nuget/v/MediaLitr?style=flat-square&logo=nuget"></a>
-  <a href="https://www.nuget.org/packages/MediaLitr.Abstractions"><img alt="NuGet" src="https://img.shields.io/nuget/v/MediaLitr.Abstractions?style=flat-square&logo=nuget"></a>
-  <img alt=".NET" src="https://img.shields.io/badge/.NET-9.0-blueviolet?style=flat-square&logo=dotnet">
-  <img alt=".NET" src="https://img.shields.io/badge/.NET-8.0-blue?style=flat-square&logo=dotnet">
-  <img alt="License" src="https://img.shields.io/badge/license-MIT-green?style=flat-square">
-</p>
+---
+
+[![NuGet - MediaLitr](https://img.shields.io/nuget/v/MediaLitr?style=flat-square&logo=nuget)](https://www.nuget.org/packages/MediaLitr)
+[![NuGet - MediaLitr.Abstractions](https://img.shields.io/nuget/v/MediaLitr.Abstractions?style=flat-square&logo=nuget)](https://www.nuget.org/packages/MediaLitr.Abstractions)
+![.NET 9.0](https://img.shields.io/badge/.NET-9.0-blueviolet?style=flat-square&logo=dotnet)
+![.NET 8.0](https://img.shields.io/badge/.NET-8.0-blue?style=flat-square&logo=dotnet)
+![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 
 ---
 
